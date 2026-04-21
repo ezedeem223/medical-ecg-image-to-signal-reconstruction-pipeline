@@ -11,3 +11,4 @@ This directory preserves historical material that remains valuable for provenanc
 ## What Does Not Live Here
 
 The maintained inference system does not depend on the archive as its public identity. The current runtime lives under `src/ecg_digitizer/`, with supporting public docs under `docs/`.
+Archived notebook and provenance materials are excluded from GitHub Linguist language classification because they preserve project history rather than define the maintained runtime surface.
