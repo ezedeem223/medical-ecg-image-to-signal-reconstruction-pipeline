@@ -1,0 +1,138 @@
+﻿# Medical ECG Image-to-Signal Reconstruction Pipeline
+
+Medical ECG Image-to-Signal Reconstruction Pipeline is a production-oriented refactor of a long-running ECG image digitization project. The repository presents one coherent runtime system for converting scanned or photographed 12-lead ECG sheets into structured digital waveforms, with provenance and research history preserved in archive-only areas.
+
+## Overview
+
+The maintained codebase focuses on a single inference pipeline:
+
+1. deterministic config loading
+2. YOLO-based lead detection
+3. EfficientNet-B3 U-Net segmentation as the primary path
+4. phase-10 ResNet50 U-Net as the explicit fallback path
+5. calibration, trace extraction, timing normalization, and strict export validation
+
+The public surface of the repository is intentionally centered on the final runtime system, not on the notebook history that produced it.
+
+## Why It Matters
+
+Digitizing ECG images into waveform arrays is useful when legacy ECGs exist only as page images, PDFs, screenshots, or scanned printouts. A robust reconstruction pipeline can support downstream review, signal analytics, quality-control tooling, and migration from image-first archives to structured biomedical data workflows.
+
+## Final Runtime Architecture
+
+- `src/ecg_digitizer/config`: typed runtime configuration and deterministic path resolution
+- `src/ecg_digitizer/models`: model registry, explicit selector, YOLO detector, segmentation loaders
+- `src/ecg_digitizer/runtime`: inference orchestration and bootstrap validation
+- `src/ecg_digitizer/preprocessing`: image loading and grid-light suppression
+- `src/ecg_digitizer/calibration`: grid-spacing estimation and amplitude calibration
+- `src/ecg_digitizer/extraction`: Viterbi-based trace extraction and probability-mask processing
+- `src/ecg_digitizer/postprocessing`: filtering, resampling, and waveform consistency fixes
+- `src/ecg_digitizer/validation`: strict submission validation
+- `src/ecg_digitizer/submission_export`: deterministic CSV export
+
+## Structural Anchor vs Performance Anchor
+
+The repository uses a deliberate dual-anchor refactor.
+
+- Structural anchor: version `57` / notebook `(56)` supplies module boundaries, execution flow, and separation of responsibilities.
+- Performance anchor: version `50` / notebook `(49)` supplies the primary runtime behavior.
+- Secondary performance reference: version `46` / notebook `(45)` remains the score-proven fallback behavioral reference.
+
+This means the package structure follows the modular late notebook line, while the runtime-critical behavior stays frozen to the score-proven compact line.
+
+## Model Policy
+
+- Detector: `models/best.pt`
+- Primary segmentation model: `models/best_model_effb3_phase9_ddp (2).pth`
+- Fallback segmentation model: `models/best_model_phase10.pth`
+- Model selection is explicit and config-driven.
+- Notebook-style checkpoint auto-discovery is forbidden in core runtime.
+
+## Project Structure
+
+```text
+.
+|-- configs/
+|-- data/
+|-- docs/
+|   |-- build_notes/
+|   |-- evolution/
+|   `-- refactor_planning/
+|-- models/
+|-- results/
+|-- src/ecg_digitizer/
+|-- tests/
+|-- tools/debug/
+|-- research/training/
+`-- archive/
+```
+
+## Installation
+
+Runtime install:
+
+```bash
+make install
+```
+
+Development install:
+
+```bash
+make install-dev
+```
+
+The default runtime dependencies are listed in `requirements.txt`. Development tooling such as `pytest` and `ruff` lives in `requirements-dev.txt`.
+
+## Quick Start
+
+1. The repository already tracks the default frozen runtime checkpoints under `models/`. Replace them only if you are intentionally overriding the release model policy.
+2. Place ECG images and competition-style metadata under your configured data root. Input data itself is not tracked in version control.
+3. Review `configs/runtime.default.yaml` and adjust paths if needed.
+4. Run inference:
+
+```bash
+ecg-digitizer run --config configs/runtime.default.yaml
+```
+
+5. Validate the resulting submission:
+
+```bash
+ecg-digitizer validate --config configs/runtime.default.yaml --submission results/submission.csv
+```
+
+## How Inference Works
+
+The inference runner reads the template IDs from the configured sample submission file, infers per-patient waveform lengths, indexes available ECG images, resolves each patient image deterministically, detects lead crops with YOLO, extracts lead waveforms with the primary segmenter, optionally applies fallback assistance from the phase-10 model, calibrates amplitudes using grid cues, resamples outputs to the required length, and writes a strict `id,value` submission file.
+
+## Debug Tooling
+
+`tools/debug/` contains opt-in inspection utilities, including:
+
+- renderer-backed signal sheet inspection
+- waveform overlay generation
+- PID/image coverage diagnostics
+- primary-vs-fallback comparison helpers
+
+These tools are intentionally outside the core runtime path.
+
+## Archive and Provenance
+
+Historical notebooks, non-core checkpoints, and the full Phase 1 audit bundle are preserved under `archive/`. They remain available for provenance and research review, but they do not define the public identity of the repository.
+
+## Limitations
+
+- Exact competition score values were not preserved in the local score registry snapshot, so the runtime is frozen against the known best-performing lineage without publishing unsupported numeric claims.
+- Late-stage filtering and some signal-polish heuristics still contain historical uncertainty and may evolve with future validation.
+- The maintained runtime assumes the target problem matches the competition-style `id,value` waveform export format.
+
+## Future Work
+
+- tighten the fallback quality gate with a dedicated evaluation set
+- add richer dataset adapters beyond the competition-style template
+- harden debug visualization around failure triage and calibration review
+- expand research training support without letting it dominate the maintained runtime path
+
+## License
+
+This project is released under the MIT License. See [LICENSE](LICENSE).
+

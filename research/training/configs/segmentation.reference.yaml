@@ -1,0 +1,22 @@
+experiment:
+  name: effb3-segmentation-reference
+  notes: |
+    Research-only training scaffold retained for provenance and future controlled extraction.
+    This is not part of the maintained inference runtime.
+
+model:
+  architecture: smp_unet
+  encoder_name: efficientnet-b3
+  decoder_attention_type: scse
+  init_checkpoint: models/best_model_effb3_phase9_ddp (2).pth
+
+data:
+  train_images: data/research/train/images
+  train_masks: data/research/train/masks
+  valid_images: data/research/valid/images
+  valid_masks: data/research/valid/masks
+
+optimization:
+  batch_size: 8
+  learning_rate: 0.0001
+  epochs: 20

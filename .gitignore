@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# OS / editors
+.DS_Store
+Thumbs.db
+
+# Outputs
+results/*
+!results/README.md
+!results/.gitkeep
+
+# Debug artifacts
+tools/debug/output/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/

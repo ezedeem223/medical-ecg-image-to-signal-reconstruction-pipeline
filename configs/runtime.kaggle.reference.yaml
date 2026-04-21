@@ -1,0 +1,43 @@
+paths:
+  project_root: ..
+  data_root: /kaggle/input/physionet-ecg-image-digitization
+  image_root: /kaggle/input/physionet-ecg-image-digitization
+  test_csv: /kaggle/input/physionet-ecg-image-digitization/test.csv
+  sample_submission: /kaggle/input/physionet-ecg-image-digitization/sample_submission.parquet
+  output_submission: /kaggle/working/submission.csv
+  models_registry: configs/models.yaml
+
+models:
+  detector_id: yolo_best
+  primary_segmentation_id: effb3_primary
+  fallback_segmentation_id: phase10_fallback
+  allow_primary_failover: true
+  use_fallback_assist: true
+
+runtime:
+  device: auto
+  yolo_conf: 0.10
+  yolo_iou: 0.45
+  target_height: 384
+  max_width: 1536
+  max_cache: 12
+  dp_max_width: 1400
+  dp_smooth: 0.45
+  tta_scales: [0.95, 1.0, 1.15]
+  tta_hflip: true
+  primary_threshold: 0.45
+  fallback_threshold: 0.50
+  morph_kernel: 3
+  min_component_area: 120
+  skeleton_boost: true
+  high_pass_cutoff_hz: 0.5
+  image_extensions: [".png", ".jpg", ".jpeg", ".bmp"]
+
+output:
+  submission_path: /kaggle/working/submission.csv
+  overwrite: true
+  float_format: "%.4f"
+
+debug:
+  enabled: false
+  artifacts_dir: /kaggle/working/debug

@@ -1,0 +1,17 @@
+models:
+  yolo_best:
+    kind: yolo
+    role: detector
+    filename: best.pt
+  effb3_primary:
+    kind: smp_unet
+    role: segmentation
+    filename: best_model_effb3_phase9_ddp (2).pth
+    encoder_name: efficientnet-b3
+    decoder_attention_type: scse
+  phase10_fallback:
+    kind: smp_unet
+    role: segmentation
+    filename: best_model_phase10.pth
+    encoder_name: resnet50
+    decoder_attention_type: scse
