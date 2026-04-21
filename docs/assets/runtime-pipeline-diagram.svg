@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="title desc">
+  <title id="title">Medical ECG image-to-signal reconstruction runtime pipeline</title>
+  <desc id="desc">A concise architecture diagram showing config and bootstrap, YOLO lead detection, EffB3 primary segmentation with phase-10 fallback, calibration and trace extraction, and validation and export.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f7fafc"/>
+      <stop offset="100%" stop-color="#edf2f7"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"/>
+    </marker>
+    <style>
+      .panel { fill: url(#bg); stroke: #1f2937; stroke-width: 2; rx: 18; ry: 18; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-size: 24px; font-weight: 700; fill: #111827; }
+      .sub { font-family: Arial, Helvetica, sans-serif; font-size: 18px; fill: #374151; }
+      .small { font-family: Arial, Helvetica, sans-serif; font-size: 16px; fill: #4b5563; }
+      .accent { fill: #dbeafe; stroke: #2563eb; stroke-width: 2; rx: 16; ry: 16; }
+      .fallback { fill: #fef3c7; stroke: #d97706; stroke-width: 2; rx: 16; ry: 16; }
+      .arrow { stroke: #1f2937; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect x="20" y="20" width="1160" height="240" fill="#ffffff" stroke="#e5e7eb" stroke-width="2" rx="24" ry="24"/>
+
+  <rect class="panel" x="40" y="70" width="210" height="140"/>
+  <text class="label" x="145" y="118" text-anchor="middle">Config &amp; Bootstrap</text>
+  <text class="sub" x="145" y="150" text-anchor="middle">deterministic paths</text>
+  <text class="small" x="145" y="178" text-anchor="middle">explicit model registry</text>
+
+  <rect class="panel" x="295" y="70" width="180" height="140"/>
+  <text class="label" x="385" y="118" text-anchor="middle">YOLO Detection</text>
+  <text class="sub" x="385" y="150" text-anchor="middle">12-lead crop extraction</text>
+  <text class="small" x="385" y="178" text-anchor="middle">best.pt</text>
+
+  <rect class="accent" x="520" y="48" width="210" height="92"/>
+  <text class="label" x="625" y="92" text-anchor="middle">EffB3 Primary</text>
+  <text class="sub" x="625" y="122" text-anchor="middle">default segmentation path</text>
+
+  <rect class="fallback" x="520" y="150" width="210" height="70"/>
+  <text class="label" x="625" y="192" text-anchor="middle">phase-10 Fallback</text>
+
+  <rect class="panel" x="775" y="70" width="200" height="140"/>
+  <text class="label" x="875" y="118" text-anchor="middle">Calibration &amp;</text>
+  <text class="label" x="875" y="146" text-anchor="middle">Trace Extraction</text>
+  <text class="small" x="875" y="176" text-anchor="middle">grid scale, Viterbi, timing</text>
+
+  <rect class="panel" x="1020" y="70" width="140" height="140"/>
+  <text class="label" x="1090" y="118" text-anchor="middle">Validate</text>
+  <text class="label" x="1090" y="146" text-anchor="middle">&amp; Export</text>
+  <text class="small" x="1090" y="176" text-anchor="middle">strict id,value output</text>
+
+  <path class="arrow" d="M 250 140 L 295 140"/>
+  <path class="arrow" d="M 475 140 L 520 140"/>
+  <path class="arrow" d="M 730 140 L 775 140"/>
+  <path class="arrow" d="M 975 140 L 1020 140"/>
+  <path class="arrow" d="M 625 140 L 625 150"/>
+
+  <text class="small" x="600" y="238" text-anchor="middle">Primary model: best_model_effb3_phase9_ddp (2).pth</text>
+  <text class="small" x="600" y="258" text-anchor="middle">Fallback model: best_model_phase10.pth</text>
+</svg>

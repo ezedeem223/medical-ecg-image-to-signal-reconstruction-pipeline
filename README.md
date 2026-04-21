@@ -14,6 +14,8 @@ The maintained codebase focuses on a single inference pipeline:
 
 The public surface of the repository is intentionally centered on the final runtime system, not on the notebook history that produced it.
 
+![Final runtime pipeline](docs/assets/runtime-pipeline-diagram.svg)
+
 ## Why It Matters
 
 Digitizing ECG images into waveform arrays is useful when legacy ECGs exist only as page images, PDFs, screenshots, or scanned printouts. A robust reconstruction pipeline can support downstream review, signal analytics, quality-control tooling, and migration from image-first archives to structured biomedical data workflows.
@@ -98,6 +100,16 @@ ecg-digitizer run --config configs/runtime.default.yaml
 
 ```bash
 ecg-digitizer validate --config configs/runtime.default.yaml --submission results/submission.csv
+```
+
+## Python API
+
+```python
+from ecg_digitizer import load_config, run_inference
+
+config = load_config("configs/runtime.default.yaml")
+submission_path = run_inference(config)
+print(submission_path)
 ```
 
 ## How Inference Works

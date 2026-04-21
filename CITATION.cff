@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If this repository supports your work, please cite it using the metadata below."
+title: "Medical ECG Image-to-Signal Reconstruction Pipeline"
+type: software
+version: "0.1.0"
+license: MIT
+authors:
+  - family-names: Sabbagh
+    given-names: Mohamad
+repository-code: "https://github.com/ezedeem223/medical-ecg-image-to-signal-reconstruction-pipeline"
+url: "https://github.com/ezedeem223/medical-ecg-image-to-signal-reconstruction-pipeline"
