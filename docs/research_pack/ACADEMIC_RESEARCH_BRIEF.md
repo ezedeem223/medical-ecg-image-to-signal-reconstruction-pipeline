@@ -1,6 +1,6 @@
 # Project Brief — ECG Image-to-Signal Reconstruction Pipeline
 
-**Prepared for:** KAUST AI Research Portfolio Review
+**Prepared for:** Academic AI Research Portfolio Review
 **Classification:** Research artifact — not a clinical or production system
 **Status:** Active development — research workbench seed
 
@@ -160,7 +160,7 @@ The following limitations apply to the current state of this project:
 
 ---
 
-## 7. Future Research Directions (KAUST-style)
+## 7. Future Research Directions
 
 The following directions are proposed for future research cycles:
 

@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_RESEARCH_PACK_FILES = [
     "docs/research_pack/README.md",
-    "docs/research_pack/PROJECT_BRIEF_KAUST.md",
+    "docs/research_pack/ACADEMIC_RESEARCH_BRIEF.md",
     "docs/research_pack/FAILURE_MODE_ATLAS.md",
     "docs/research_pack/SYNTHETIC_BENCHMARK_PROTOCOL.md",
     "docs/research_pack/EVALUATION_PROTOCOL.md",
@@ -58,19 +58,19 @@ def test_benchmark_structure_exists(rel_path):
     assert path.exists(), f"Missing benchmark structure file: {rel_path}"
 
 
-def test_kaust_brief_mentions_synthetic():
-    path = ROOT / "docs/research_pack/PROJECT_BRIEF_KAUST.md"
+def test_academic_research_brief_mentions_synthetic():
+    path = ROOT / "docs/research_pack/ACADEMIC_RESEARCH_BRIEF.md"
     content = path.read_text(encoding="utf-8")
-    assert "synthetic" in content.lower(), "KAUST brief must mention synthetic benchmark"
+    assert "synthetic" in content.lower(), "Academic research brief must mention synthetic benchmark"
 
 
-def test_kaust_brief_no_clinical_claims():
-    path = ROOT / "docs/research_pack/PROJECT_BRIEF_KAUST.md"
+def test_academic_research_brief_no_clinical_claims():
+    path = ROOT / "docs/research_pack/ACADEMIC_RESEARCH_BRIEF.md"
     content = path.read_text(encoding="utf-8").lower()
     forbidden = ["clinical validation has been performed", "diagnos", "fda", "ce mark"]
     for term in forbidden:
         assert term not in content, (
-            f"KAUST brief must not contain clinical claim: {term!r}"
+            f"Academic research brief must not contain clinical claim: {term!r}"
         )
 
 
