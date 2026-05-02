@@ -29,5 +29,5 @@ tools/debug/output/
 # Jupyter checkpoints
 .ipynb_checkpoints/
 
-# Replit local environment
+# Local environment files
 .replit
