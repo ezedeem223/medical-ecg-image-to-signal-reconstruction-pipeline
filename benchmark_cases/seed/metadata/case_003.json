@@ -1,0 +1,58 @@
+{
+  "case_id": "case_003",
+  "synthetic": true,
+  "data_source": "SYNTHETIC",
+  "warning": "This waveform is parametrically generated. It does not represent real patient data and must not be used for clinical purposes.",
+  "signal": {
+    "sampling_rate_hz": 500,
+    "num_leads": 12,
+    "signal_length_samples": 5000,
+    "duration_seconds": 10.0,
+    "heart_rate_bpm": 80.79087956263776,
+    "leads": [
+      "I",
+      "II",
+      "III",
+      "aVR",
+      "aVL",
+      "aVF",
+      "V1",
+      "V2",
+      "V3",
+      "V4",
+      "V5",
+      "V6"
+    ]
+  },
+  "distortion_variants": [
+    "clean",
+    "blur",
+    "noise",
+    "low_contrast",
+    "rotation",
+    "cropped"
+  ],
+  "generator": {
+    "module": "tools.synthetic_benchmark.generate_cases",
+    "seed": 45,
+    "params": {
+      "fs": 500,
+      "duration_s": 10,
+      "heart_rate_bpm": 80.79087956263776,
+      "morphology_scales": {
+        "I": 1.0170946871021216,
+        "II": 1.3581901438811557,
+        "III": 0.8870156602057642,
+        "aVR": -0.8938626868795658,
+        "aVL": 0.5117358689591149,
+        "aVF": 1.018445321784018,
+        "V1": 0.5379020017363471,
+        "V2": 0.6634312187583775,
+        "V3": 1.168510575921919,
+        "V4": 1.350987131941435,
+        "V5": 1.3360329422932697,
+        "V6": 0.9896653954051071
+      }
+    }
+  }
+}

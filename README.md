@@ -144,6 +144,30 @@ Historical notebooks, non-core checkpoints, and the full Phase 1 audit bundle ar
 - harden debug visualization around failure triage and calibration review
 - expand research training support without letting it dominate the maintained runtime path
 
+## ECG Research Workbench Seed
+
+Branch: `agent-lab/ecg-research-workbench-seed`
+
+A research workbench seed has been added to this project. It does not modify
+the core runtime and requires no model weights or real ECG data to use.
+
+- **Parametric synthetic ECG-like benchmark** — generates 5–10 synthetic 12-lead
+  cases with ground-truth waveforms, ECG-paper-style images, and six controlled
+  distortion variants (clean, blur, noise, low contrast, rotation, cropped).
+  All cases are explicitly labeled `SYNTHETIC`.
+- **Synthetic-only scoring utility** — computes MAE, RMSE, and an SNR-proxy
+  score against known ground-truth waveforms. Not a clinical accuracy measure.
+- **Engineering quality-control checks** — detects NaN/Inf values, all-zero
+  signals, flatlines, amplitude anomalies, and length inconsistencies, with
+  Markdown report output.
+- **Failure mode atlas** — structured documentation of 8 failure categories
+  (low contrast, rotation, blur, cropping, grid weakness, overlapping leads,
+  flatline extraction, calibration ambiguity).
+- **KAUST research brief** — concise academic brief covering problem, pipeline,
+  workbench contribution, limitations, and future research directions.
+
+See `docs/research_pack/` and `tools/synthetic_benchmark/` for details.
+
 ## License
 
 This project is released under the MIT License. See [LICENSE](LICENSE).

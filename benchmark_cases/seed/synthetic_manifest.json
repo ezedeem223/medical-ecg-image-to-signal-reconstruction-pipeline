@@ -1,0 +1,89 @@
+{
+  "synthetic": true,
+  "warning": "This waveform is parametrically generated. It does not represent real patient data and must not be used for clinical purposes.",
+  "dataset": "ECG Research Workbench \u2014 Synthetic Benchmark Seed",
+  "num_cases": 5,
+  "output_dir": "benchmark_cases/seed",
+  "cases": [
+    {
+      "case_id": "case_000",
+      "synthetic": true,
+      "seed": 42,
+      "heart_rate_bpm": 89.82802218501834,
+      "waveform_csv": "waveforms/case_000.csv",
+      "metadata_json": "metadata/case_000.json",
+      "images": [
+        "case_000_clean.ppm",
+        "case_000_blur.ppm",
+        "case_000_noise.ppm",
+        "case_000_low_contrast.ppm",
+        "case_000_rotation.ppm",
+        "case_000_cropped.ppm"
+      ]
+    },
+    {
+      "case_id": "case_001",
+      "synthetic": true,
+      "seed": 43,
+      "heart_rate_bpm": 84.35346682154098,
+      "waveform_csv": "waveforms/case_001.csv",
+      "metadata_json": "metadata/case_001.json",
+      "images": [
+        "case_001_clean.ppm",
+        "case_001_blur.ppm",
+        "case_001_noise.ppm",
+        "case_001_low_contrast.ppm",
+        "case_001_rotation.ppm",
+        "case_001_cropped.ppm"
+      ]
+    },
+    {
+      "case_id": "case_002",
+      "synthetic": true,
+      "seed": 44,
+      "heart_rate_bpm": 60.51544793532422,
+      "waveform_csv": "waveforms/case_002.csv",
+      "metadata_json": "metadata/case_002.json",
+      "images": [
+        "case_002_clean.ppm",
+        "case_002_blur.ppm",
+        "case_002_noise.ppm",
+        "case_002_low_contrast.ppm",
+        "case_002_rotation.ppm",
+        "case_002_cropped.ppm"
+      ]
+    },
+    {
+      "case_id": "case_003",
+      "synthetic": true,
+      "seed": 45,
+      "heart_rate_bpm": 80.79087956263776,
+      "waveform_csv": "waveforms/case_003.csv",
+      "metadata_json": "metadata/case_003.json",
+      "images": [
+        "case_003_clean.ppm",
+        "case_003_blur.ppm",
+        "case_003_noise.ppm",
+        "case_003_low_contrast.ppm",
+        "case_003_rotation.ppm",
+        "case_003_cropped.ppm"
+      ]
+    },
+    {
+      "case_id": "case_004",
+      "synthetic": true,
+      "seed": 46,
+      "heart_rate_bpm": 95.75219245106405,
+      "waveform_csv": "waveforms/case_004.csv",
+      "metadata_json": "metadata/case_004.json",
+      "images": [
+        "case_004_clean.ppm",
+        "case_004_blur.ppm",
+        "case_004_noise.ppm",
+        "case_004_low_contrast.ppm",
+        "case_004_rotation.ppm",
+        "case_004_cropped.ppm"
+      ]
+    }
+  ]
+}
