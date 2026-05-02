@@ -1,6 +1,6 @@
 ﻿# Medical ECG Image-to-Signal Reconstruction Pipeline
 
-Medical ECG Image-to-Signal Reconstruction Pipeline is a production-oriented refactor of a long-running ECG image digitization project. The repository presents one coherent runtime system for converting scanned or photographed 12-lead ECG sheets into structured digital waveforms, with provenance and research history preserved in archive-only areas.
+Medical ECG Image-to-Signal Reconstruction Pipeline is a production-oriented refactor of a long-running ECG image digitization project. The repository presents one coherent runtime system for conve[...]
 
 ## Overview
 
@@ -18,7 +18,7 @@ The public surface of the repository is intentionally centered on the final runt
 
 ## Why It Matters
 
-Digitizing ECG images into waveform arrays is useful when legacy ECGs exist only as page images, PDFs, screenshots, or scanned printouts. A robust reconstruction pipeline can support downstream review, signal analytics, quality-control tooling, and migration from image-first archives to structured biomedical data workflows.
+Digitizing ECG images into waveform arrays is useful when legacy ECGs exist only as page images, PDFs, screenshots, or scanned printouts. A robust reconstruction pipeline can support downstream re[...]
 
 ## Final Runtime Architecture
 
@@ -114,7 +114,7 @@ print(submission_path)
 
 ## How Inference Works
 
-The inference runner reads the template IDs from the configured sample submission file, infers per-patient waveform lengths, indexes available ECG images, resolves each patient image deterministically, detects lead crops with YOLO, extracts lead waveforms with the primary segmenter, optionally applies fallback assistance from the phase-10 model, calibrates amplitudes using grid cues, resamples outputs to the required length, and writes a strict `id,value` submission file.
+The inference runner reads the template IDs from the configured sample submission file, infers per-patient waveform lengths, indexes available ECG images, resolves each patient image deterministi[...]
 
 ## Debug Tooling
 
@@ -129,11 +129,11 @@ These tools are intentionally outside the core runtime path.
 
 ## Archive and Provenance
 
-Historical notebooks, non-core checkpoints, and the full Phase 1 audit bundle are preserved under `archive/`. They remain available for provenance and research review, but they do not define the public identity of the repository.
+Historical notebooks, non-core checkpoints, and the full Phase 1 audit bundle are preserved under `archive/`. They remain available for provenance and research review, but they do not define the [...]
 
 ## Limitations
 
-- Exact competition score values were not preserved in the local score registry snapshot, so the runtime is frozen against the known best-performing lineage without publishing unsupported numeric claims.
+- Exact competition score values were not preserved in the local score registry snapshot, so the runtime is frozen against the known best-performing lineage without publishing unsupported numeric[...]
 - Late-stage filtering and some signal-polish heuristics still contain historical uncertainty and may evolve with future validation.
 - The maintained runtime assumes the target problem matches the competition-style `id,value` waveform export format.
 
@@ -146,9 +146,7 @@ Historical notebooks, non-core checkpoints, and the full Phase 1 audit bundle ar
 
 ## ECG Research Workbench Seed
 
-Branch: `agent-lab/ecg-research-workbench-seed`
-
-A research workbench seed has been added to this project. It does not modify
+This repository includes an ECG Research Workbench Seed. It does not modify
 the core runtime and requires no model weights or real ECG data to use.
 
 - **Parametric synthetic ECG-like benchmark** — generates 5–10 synthetic 12-lead
@@ -171,4 +169,3 @@ See `docs/research_pack/` and `tools/synthetic_benchmark/` for details.
 ## License
 
 This project is released under the MIT License. See [LICENSE](LICENSE).
-
