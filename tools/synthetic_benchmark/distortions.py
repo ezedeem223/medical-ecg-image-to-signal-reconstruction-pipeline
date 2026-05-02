@@ -22,11 +22,21 @@ def apply_blur(image: np.ndarray, *, sigma: float = 2.0) -> np.ndarray:
         return np.clip(blurred, 0, 255).astype(np.uint8)
     except ImportError:
         pass
+    
+    # Pure-NumPy fallback: apply Gaussian blur independently per channel
     radius = max(1, int(math.ceil(sigma * 3)) | 1)
     kernel = _gaussian_kernel_1d(radius, sigma)
     out = image.astype(np.float32)
-    for ax in (0, 1):
-        out = np.apply_along_axis(lambda row: np.convolve(row, kernel, mode="same"), ax, out)
+    
+    # Apply convolution along each spatial axis, per channel
+    for channel in range(out.shape[2]):
+        for ax in (0, 1):
+            out[:, :, channel] = np.apply_along_axis(
+                lambda row: np.convolve(row, kernel, mode="same"),
+                ax,
+                out[:, :, channel]
+            )
+    
     return np.clip(out, 0, 255).astype(np.uint8)
 
 
