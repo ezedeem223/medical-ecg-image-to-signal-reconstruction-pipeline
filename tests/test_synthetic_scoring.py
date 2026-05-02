@@ -5,6 +5,8 @@ All tests use toy arrays — no real ECG data or model weights required.
 """
 from __future__ import annotations
 
+import csv
+import json
 import sys
 from pathlib import Path
 
@@ -22,6 +24,7 @@ from tools.synthetic_benchmark.score_synthetic import (  # noqa: E402
     compute_snr_proxy,
     load_waveform_csv,
     score_waveforms,
+    main,
 )
 
 
@@ -128,7 +131,6 @@ class TestScoreWaveforms:
         assert result["aggregate"]["mean_mae"] > 0.0
 
     def test_score_on_toy_csv(self, tmp_path):
-        import csv
         leads = _toy_leads(n_samples=50)
         csv_path = tmp_path / "test.csv"
         with open(csv_path, "w", newline="") as f:
@@ -145,7 +147,6 @@ class TestScoreWaveforms:
 
 class TestLoadWaveformCsv:
     def test_loads_all_leads(self, tmp_path):
-        import csv
         path = tmp_path / "wave.csv"
         with open(path, "w", newline="") as f:
             writer = csv.writer(f)
@@ -158,7 +159,6 @@ class TestLoadWaveformCsv:
         np.testing.assert_allclose(leads["I"], [0.1, 0.2, 0.3], atol=1e-5)
 
     def test_raises_on_non_numeric(self, tmp_path):
-        import csv
         path = tmp_path / "bad.csv"
         with open(path, "w", newline="") as f:
             writer = csv.writer(f)
@@ -166,3 +166,68 @@ class TestLoadWaveformCsv:
             writer.writerow(["I", "abc", "def"])
         with pytest.raises(ValueError):
             load_waveform_csv(path)
+
+
+class TestScoreSyntheticCli:
+    def test_main_cli_end_to_end(self, tmp_path: Path) -> None:
+        """End-to-end test for score_synthetic.main CLI entry point.
+
+        Validates argument parsing, file I/O, JSON structure, and synthetic disclaimer.
+        """
+        # Arrange: create minimal ground-truth and prediction CSVs
+        # using the schema expected by load_waveform_csv (lead_name + sample indices)
+        gt_path = tmp_path / "ground_truth.csv"
+        pred_path = tmp_path / "prediction.csv"
+        out_path = tmp_path / "scores.json"
+
+        # Create simple 3-sample waveforms for 12 leads
+        n_samples = 3
+        with open(gt_path, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["lead_name"] + list(range(n_samples)))
+            for i, lead in enumerate(LEAD_NAMES):
+                values = [f"{float(i) * 0.1 + j * 0.01:.6f}" for j in range(n_samples)]
+                writer.writerow([lead] + values)
+
+        with open(pred_path, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["lead_name"] + list(range(n_samples)))
+            for i, lead in enumerate(LEAD_NAMES):
+                # Slightly noisy predictions
+                values = [f"{float(i) * 0.1 + j * 0.01 + 0.001:.6f}" for j in range(n_samples)]
+                writer.writerow([lead] + values)
+
+        # Act: run the CLI entry point
+        exit_code = main(
+            [
+                "--ground-truth",
+                str(gt_path),
+                "--prediction",
+                str(pred_path),
+                "--output",
+                str(out_path),
+            ]
+        )
+
+        # Assert: CLI succeeded and wrote valid JSON with expected structure
+        assert exit_code == 0, "CLI should return 0 on success"
+        assert out_path.is_file(), "Expected output JSON file to be created"
+
+        data = json.loads(out_path.read_text(encoding="utf-8"))
+
+        # Synthetic flag and disclaimer should be persisted
+        assert data.get("synthetic") is True, "Output should be marked synthetic"
+        assert data.get("disclaimer") == SYNTHETIC_DISCLAIMER, "Disclaimer should be present"
+
+        # Aggregate block should exist and contain a num_leads_scored field
+        aggregate = data.get("aggregate")
+        assert isinstance(aggregate, dict), "Aggregate should be a dict"
+        assert "num_leads_scored" in aggregate, "Aggregate should have num_leads_scored"
+        assert aggregate["num_leads_scored"] == 12, "Should score all 12 leads"
+
+        # Per-lead results should exist
+        per_lead = data.get("per_lead")
+        assert isinstance(per_lead, dict), "per_lead should be a dict"
+        assert len(per_lead) == 12, "Should have results for all 12 leads"
+        for lead in LEAD_NAMES:
+            assert lead in per_lead, f"Lead {lead} should be in per_lead results"
