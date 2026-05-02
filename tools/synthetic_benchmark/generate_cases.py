@@ -38,6 +38,29 @@ DEFAULT_FS = 500
 DEFAULT_DURATION_S = 10
 DEFAULT_DISTORTIONS = ["clean", "blur", "noise", "low_contrast", "rotation", "cropped"]
 
+# Deterministic mapping from distortion name to seed offset.
+# This ensures identical inputs produce identical outputs across processes.
+DISTORTION_SEED_OFFSETS = {
+    "clean": 0,
+    "blur": 1,
+    "noise": 2,
+    "low_contrast": 3,
+    "rotation": 4,
+    "cropped": 5,
+}
+
+
+def _get_distortion_seed(base_seed: int, case_idx: int, dist_name: str) -> int:
+    """
+    Deterministically derive a distortion seed from base_seed, case index, and distortion name.
+
+    This avoids Python's per-process hash() salt and ensures reproducibility.
+    """
+    offset = DISTORTION_SEED_OFFSETS.get(dist_name, 0)
+    # Combine base_seed, case_idx, and offset in a deterministic way.
+    # The formula ensures different (case, distortion) pairs get different seeds.
+    return base_seed + (case_idx * 100) + offset
+
 
 def _pqrst_template(
     fs: int,
@@ -183,7 +206,7 @@ def generate_cases(
         image = render_ecg_image(waveforms, fs=fs)
         image_files: list[str] = []
         for dist_name in distortions:
-            dist_seed = seed + hash(dist_name) % 1000
+            dist_seed = _get_distortion_seed(base_seed, case_idx, dist_name)
             dist_image = apply_distortion(dist_name, image, seed=dist_seed)
             requested_path = output_dir / "images" / f"{case_id}_{dist_name}.png"
             actual_path = save_image(dist_image, requested_path)
