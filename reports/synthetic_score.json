@@ -1,0 +1,138 @@
+{
+  "synthetic": true,
+  "disclaimer": "SYNTHETIC BENCHMARK ONLY. Scores measure fidelity on parametrically generated waveforms. These results do not represent clinical accuracy and must not be used for diagnostic or regulatory purposes.",
+  "aggregate": {
+    "mean_mae": 0.0,
+    "mean_rmse": 0.0,
+    "mean_snr_proxy_db": null,
+    "num_leads_scored": 12
+  },
+  "per_lead": {
+    "I": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "II": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "III": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "V1": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "V2": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "V3": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "V4": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "V5": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "V6": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "aVF": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "aVL": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    },
+    "aVR": {
+      "mae": 0.0,
+      "rmse": 0.0,
+      "snr_proxy_db": null,
+      "gt_length": 5000,
+      "pred_length": 5000,
+      "aligned_length": 5000,
+      "length_match": true
+    }
+  },
+  "missing_leads": {
+    "in_prediction": [],
+    "in_ground_truth": []
+  },
+  "common_leads": [
+    "I",
+    "II",
+    "III",
+    "V1",
+    "V2",
+    "V3",
+    "V4",
+    "V5",
+    "V6",
+    "aVF",
+    "aVL",
+    "aVR"
+  ]
+}
