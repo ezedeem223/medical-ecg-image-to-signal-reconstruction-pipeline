@@ -1,6 +1,6 @@
-﻿# Medical ECG Image-to-Signal Reconstruction Pipeline
+# Medical ECG Image-to-Signal Reconstruction Pipeline
 
-Medical ECG Image-to-Signal Reconstruction Pipeline is a production-oriented refactor of a long-running ECG image digitization project. The repository presents one coherent runtime system for conve[...]
+Medical ECG Image-to-Signal Reconstruction Pipeline is a production-oriented refactor of a long-running ECG image digitization project. The repository presents one coherent runtime system for converting scanned or photographed 12-lead ECG sheets into structured digital waveforms, with provenance and research history preserved in archive-only areas.
 
 ## Overview
 
@@ -18,7 +18,7 @@ The public surface of the repository is intentionally centered on the final runt
 
 ## Why It Matters
 
-Digitizing ECG images into waveform arrays is useful when legacy ECGs exist only as page images, PDFs, screenshots, or scanned printouts. A robust reconstruction pipeline can support downstream re[...]
+Digitizing ECG images into waveform arrays is useful when legacy ECGs exist only as page images, PDFs, screenshots, or scanned printouts. A robust reconstruction pipeline can support downstream review, signal analytics, quality-control tooling, and migration from image-first archives to structured biomedical data workflows.
 
 ## Final Runtime Architecture
 
@@ -114,7 +114,7 @@ print(submission_path)
 
 ## How Inference Works
 
-The inference runner reads the template IDs from the configured sample submission file, infers per-patient waveform lengths, indexes available ECG images, resolves each patient image deterministi[...]
+The inference runner reads the template IDs from the configured sample submission file, infers per-patient waveform lengths, indexes available ECG images, resolves each patient image deterministically, detects lead crops with YOLO, extracts lead waveforms with the primary segmenter, optionally applies fallback assistance from the phase-10 model, calibrates amplitudes using grid cues, resamples outputs to the required length, and writes a strict `id,value` submission file.
 
 ## Debug Tooling
 
@@ -129,11 +129,11 @@ These tools are intentionally outside the core runtime path.
 
 ## Archive and Provenance
 
-Historical notebooks, non-core checkpoints, and the full Phase 1 audit bundle are preserved under `archive/`. They remain available for provenance and research review, but they do not define the [...]
+Historical notebooks, non-core checkpoints, and the full Phase 1 audit bundle are preserved under `archive/`. They remain available for provenance and research review, but they do not define the public identity of the repository.
 
 ## Limitations
 
-- Exact competition score values were not preserved in the local score registry snapshot, so the runtime is frozen against the known best-performing lineage without publishing unsupported numeric[...]
+- Exact competition score values were not preserved in the local score registry snapshot, so the runtime is frozen against the known best-performing lineage without publishing unsupported numeric claims.
 - Late-stage filtering and some signal-polish heuristics still contain historical uncertainty and may evolve with future validation.
 - The maintained runtime assumes the target problem matches the competition-style `id,value` waveform export format.
 
@@ -169,3 +169,4 @@ See `docs/research_pack/` and `tools/synthetic_benchmark/` for details.
 ## License
 
 This project is released under the MIT License. See [LICENSE](LICENSE).
+

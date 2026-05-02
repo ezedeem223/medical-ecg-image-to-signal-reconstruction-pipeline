@@ -113,7 +113,7 @@ ECG digitization project. The key contributions are:
 
 ## 5. What the Research Workbench Seed Adds
 
-The workbench seed (on branch `agent-lab/ecg-research-workbench-seed`) adds:
+The workbench seed adds:
 
 - **Parametric synthetic ECG-like benchmark:** 5–10 cases with 12-lead-like
   waveforms, ECG-paper-style image rendering, and six distortion variants

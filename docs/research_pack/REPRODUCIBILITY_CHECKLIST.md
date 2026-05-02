@@ -3,7 +3,6 @@
 **Purpose:** Step-by-step guide to reproduce all research workbench outputs
 from a clean clone of this repository.
 
-**Branch:** `agent-lab/ecg-research-workbench-seed`
 **Scope:** Synthetic benchmark, scoring, QC reports, and research documentation.
            Full pipeline inference requires additional assets (see Section 6).
 

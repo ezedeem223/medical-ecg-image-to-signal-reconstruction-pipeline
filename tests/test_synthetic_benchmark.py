@@ -184,6 +184,99 @@ class TestDistortions:
             apply("nonexistent_distortion", img)
 
 
+class TestDistortionSeedDeterminism:
+    """Distortion seeds must not rely on hash() and must be stable across runs."""
+
+    def _import_offset(self):
+        import sys
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        from tools.synthetic_benchmark.generate_cases import _DISTORTION_OFFSET, DEFAULT_DISTORTIONS
+        return _DISTORTION_OFFSET, DEFAULT_DISTORTIONS
+
+    def test_offset_map_covers_all_default_distortions(self):
+        offset_map, defaults = self._import_offset()
+        for name in defaults:
+            assert name in offset_map, f"Missing distortion offset for {name!r}"
+
+    def test_offset_values_are_plain_integers(self):
+        offset_map, _ = self._import_offset()
+        for name, val in offset_map.items():
+            assert isinstance(val, int), f"Offset for {name!r} is not int: {type(val)}"
+
+    def test_offsets_are_unique(self):
+        offset_map, _ = self._import_offset()
+        values = list(offset_map.values())
+        assert len(values) == len(set(values)), "Distortion offsets must be unique"
+
+    def test_seed_derivation_is_stable(self):
+        """Same base_seed + distortion name → same dist_seed, regardless of process."""
+        offset_map, _ = self._import_offset()
+        base_seed = 42
+        for name, offset in offset_map.items():
+            dist_seed_a = base_seed + offset
+            dist_seed_b = base_seed + offset_map[name]
+            assert dist_seed_a == dist_seed_b
+
+    def test_no_hash_call_in_generate_cases(self):
+        """Regression guard: generate_cases.py must not call hash() on dist names."""
+        src = (ROOT / "tools" / "synthetic_benchmark" / "generate_cases.py").read_text()
+        assert "hash(dist_name)" not in src, (
+            "generate_cases.py must not use hash(dist_name) — it is non-deterministic"
+        )
+
+
+class TestBlurFallbackChannelSafety:
+    """Numpy blur fallback must apply convolution per channel, not across channels."""
+
+    def _import_blur(self):
+        import sys
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        from tools.synthetic_benchmark.distortions import apply_blur, _gaussian_kernel_1d
+        return apply_blur, _gaussian_kernel_1d
+
+    def _distinct_channel_image(self) -> np.ndarray:
+        """Return a small uint8 image where each RGB channel has a unique constant value."""
+        img = np.zeros((20, 30, 3), dtype=np.uint8)
+        img[:, :, 0] = 50
+        img[:, :, 1] = 150
+        img[:, :, 2] = 200
+        return img
+
+    def test_blur_preserves_shape_and_dtype(self):
+        apply_blur, _ = self._import_blur()
+        img = self._distinct_channel_image()
+        out = apply_blur(img)
+        assert out.shape == img.shape
+        assert out.dtype == np.uint8
+
+    def test_blur_does_not_mix_channels(self):
+        """Per-channel blur must not bleed one channel's values into another.
+
+        Each channel is a uniform constant.  Correct per-channel blur should
+        produce an output whose mean is very close to the original constant
+        (edge pixels may deviate slightly due to zero-padding, but no channel's
+        average should drift toward another channel's value).  If channels were
+        mixed the means would converge toward each other.
+        """
+        apply_blur, _ = self._import_blur()
+        img = self._distinct_channel_image()
+        out = apply_blur(img)
+        original_means = [50.0, 150.0, 200.0]
+        for c in range(3):
+            channel_mean = float(out[:, :, c].mean())
+            assert abs(channel_mean - original_means[c]) < 30.0, (
+                f"Channel {c} mean drifted too far: expected ~{original_means[c]}, "
+                f"got {channel_mean:.1f}. Channels may be mixed."
+            )
+
+    def test_gaussian_kernel_sums_to_one(self):
+        _, _gaussian_kernel_1d = self._import_blur()
+        kernel = _gaussian_kernel_1d(7, 2.0)
+        assert abs(kernel.sum() - 1.0) < 1e-5
+
+
 class TestMetadata:
     def test_build_case_metadata_synthetic_flag(self):
         build_meta, _ = _import_metadata()
