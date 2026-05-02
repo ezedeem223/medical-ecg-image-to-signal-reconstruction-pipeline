@@ -99,6 +99,53 @@ def test_reproducibility_checklist_mentions_seed():
     )
 
 
+def test_manifest_image_references_exist():
+    """Every image filename in synthetic_manifest.json must exist on disk.
+
+    This test catches the PNG/PPM mismatch: if generate_cases records
+    a .png name but the fallback writer produced a .ppm file, this test
+    will fail with a clear error listing the missing paths.
+    """
+    import json
+    manifest_path = ROOT / "benchmark_cases" / "seed" / "synthetic_manifest.json"
+    if not manifest_path.exists():
+        pytest.skip("Manifest not generated yet — run generate_cases.py first.")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    images_dir = ROOT / "benchmark_cases" / "seed" / "images"
+    missing: list[str] = []
+    for case in manifest["cases"]:
+        for img_name in case["images"]:
+            img_path = images_dir / img_name
+            if not img_path.exists():
+                missing.append(str(img_path.relative_to(ROOT)))
+    assert not missing, (
+        f"Manifest references {len(missing)} image file(s) that do not exist:\n"
+        + "\n".join(f"  {p}" for p in missing)
+    )
+
+
+def test_manifest_waveform_and_metadata_references_exist():
+    """Every waveform and metadata path in synthetic_manifest.json must exist."""
+    import json
+    manifest_path = ROOT / "benchmark_cases" / "seed" / "synthetic_manifest.json"
+    if not manifest_path.exists():
+        pytest.skip("Manifest not generated yet — run generate_cases.py first.")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    seed_dir = ROOT / "benchmark_cases" / "seed"
+    missing: list[str] = []
+    for case in manifest["cases"]:
+        wf = seed_dir / case["waveform_csv"]
+        if not wf.exists():
+            missing.append(str(wf.relative_to(ROOT)))
+        meta = seed_dir / case["metadata_json"]
+        if not meta.exists():
+            missing.append(str(meta.relative_to(ROOT)))
+    assert not missing, (
+        f"Manifest references {len(missing)} file(s) that do not exist:\n"
+        + "\n".join(f"  {p}" for p in missing)
+    )
+
+
 def test_score_synthetic_has_disclaimer():
     import sys
     if str(ROOT) not in sys.path:

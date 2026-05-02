@@ -51,14 +51,22 @@ benchmark_cases/seed/
 ├── README.md
 ├── synthetic_manifest.json
 ├── images/
-│   ├── case_000_clean.png
-│   ├── case_000_blur.png
+│   ├── case_000_clean.png    (PNG when matplotlib/Pillow available)
+│   ├── case_000_clean.ppm    (PPM fallback when neither is installed)
 │   └── ...
 ├── waveforms/
 │   └── case_000.csv   (12-lead ground-truth, shape: 12 x T)
 └── metadata/
     └── case_000.json
 ```
+
+### Image format note
+
+Images are written as `.png` when `matplotlib` or `Pillow` is installed.
+When neither is available the fallback writer produces `.ppm` (portable
+pixmap). The `synthetic_manifest.json` always records the **actual**
+filename that was written, so manifest references are always consistent
+with the files on disk regardless of which writer was used.
 
 ## Distortion Variants
 

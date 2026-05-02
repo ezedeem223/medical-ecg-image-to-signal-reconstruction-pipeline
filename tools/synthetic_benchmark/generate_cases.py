@@ -185,10 +185,9 @@ def generate_cases(
         for dist_name in distortions:
             dist_seed = seed + hash(dist_name) % 1000
             dist_image = apply_distortion(dist_name, image, seed=dist_seed)
-            img_filename = f"{case_id}_{dist_name}.png"
-            img_path = output_dir / "images" / img_filename
-            save_image(dist_image, img_path)
-            image_files.append(img_filename)
+            requested_path = output_dir / "images" / f"{case_id}_{dist_name}.png"
+            actual_path = save_image(dist_image, requested_path)
+            image_files.append(actual_path.name)
 
         generator_params = {
             "fs": fs,

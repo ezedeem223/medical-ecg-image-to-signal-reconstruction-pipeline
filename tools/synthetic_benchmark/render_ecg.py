@@ -167,7 +167,14 @@ def _png_bytes_to_stub_array(data: bytes) -> np.ndarray:
     return img
 
 
-def save_image(image: np.ndarray, path: Path) -> None:
+def save_image(image: np.ndarray, path: Path) -> Path:
+    """Save image to disk and return the actual path written.
+
+    Tries matplotlib (PNG), then Pillow (PNG), then falls back to a PPM
+    writer that needs no third-party library. The returned path always
+    matches the file that was actually written on disk, so callers can
+    record the real filename instead of assuming the requested suffix.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     try:
         import matplotlib
@@ -178,16 +185,18 @@ def save_image(image: np.ndarray, path: Path) -> None:
         ax.axis("off")
         fig.savefig(str(path), dpi=100, bbox_inches="tight", pad_inches=0)
         plt.close(fig)
-        return
+        return path
     except ImportError:
         pass
     try:
         from PIL import Image as PILImage
         PILImage.fromarray(image).save(str(path))
-        return
+        return path
     except ImportError:
         pass
-    _save_ppm(image, path.with_suffix(".ppm"))
+    ppm_path = path.with_suffix(".ppm")
+    _save_ppm(image, ppm_path)
+    return ppm_path
 
 
 def _save_ppm(image: np.ndarray, path: Path) -> None:

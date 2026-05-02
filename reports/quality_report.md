@@ -9,7 +9,7 @@
 | Field | Value |
 |-------|-------|
 | Input file | `benchmark_cases/seed/waveforms/case_000.csv` |
-| Generated | 2026-05-02 19:10 UTC |
+| Generated | 2026-05-02 19:40 UTC |
 | Leads found | 12 |
 | Overall status | ℹ️ **INFO** |
 

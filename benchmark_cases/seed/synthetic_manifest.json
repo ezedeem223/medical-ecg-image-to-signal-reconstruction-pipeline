@@ -13,12 +13,12 @@
       "waveform_csv": "waveforms/case_000.csv",
       "metadata_json": "metadata/case_000.json",
       "images": [
-        "case_000_clean.png",
-        "case_000_blur.png",
-        "case_000_noise.png",
-        "case_000_low_contrast.png",
-        "case_000_rotation.png",
-        "case_000_cropped.png"
+        "case_000_clean.ppm",
+        "case_000_blur.ppm",
+        "case_000_noise.ppm",
+        "case_000_low_contrast.ppm",
+        "case_000_rotation.ppm",
+        "case_000_cropped.ppm"
       ]
     },
     {
@@ -29,12 +29,12 @@
       "waveform_csv": "waveforms/case_001.csv",
       "metadata_json": "metadata/case_001.json",
       "images": [
-        "case_001_clean.png",
-        "case_001_blur.png",
-        "case_001_noise.png",
-        "case_001_low_contrast.png",
-        "case_001_rotation.png",
-        "case_001_cropped.png"
+        "case_001_clean.ppm",
+        "case_001_blur.ppm",
+        "case_001_noise.ppm",
+        "case_001_low_contrast.ppm",
+        "case_001_rotation.ppm",
+        "case_001_cropped.ppm"
       ]
     },
     {
@@ -45,12 +45,12 @@
       "waveform_csv": "waveforms/case_002.csv",
       "metadata_json": "metadata/case_002.json",
       "images": [
-        "case_002_clean.png",
-        "case_002_blur.png",
-        "case_002_noise.png",
-        "case_002_low_contrast.png",
-        "case_002_rotation.png",
-        "case_002_cropped.png"
+        "case_002_clean.ppm",
+        "case_002_blur.ppm",
+        "case_002_noise.ppm",
+        "case_002_low_contrast.ppm",
+        "case_002_rotation.ppm",
+        "case_002_cropped.ppm"
       ]
     },
     {
@@ -61,12 +61,12 @@
       "waveform_csv": "waveforms/case_003.csv",
       "metadata_json": "metadata/case_003.json",
       "images": [
-        "case_003_clean.png",
-        "case_003_blur.png",
-        "case_003_noise.png",
-        "case_003_low_contrast.png",
-        "case_003_rotation.png",
-        "case_003_cropped.png"
+        "case_003_clean.ppm",
+        "case_003_blur.ppm",
+        "case_003_noise.ppm",
+        "case_003_low_contrast.ppm",
+        "case_003_rotation.ppm",
+        "case_003_cropped.ppm"
       ]
     },
     {
@@ -77,12 +77,12 @@
       "waveform_csv": "waveforms/case_004.csv",
       "metadata_json": "metadata/case_004.json",
       "images": [
-        "case_004_clean.png",
-        "case_004_blur.png",
-        "case_004_noise.png",
-        "case_004_low_contrast.png",
-        "case_004_rotation.png",
-        "case_004_cropped.png"
+        "case_004_clean.ppm",
+        "case_004_blur.ppm",
+        "case_004_noise.ppm",
+        "case_004_low_contrast.ppm",
+        "case_004_rotation.ppm",
+        "case_004_cropped.ppm"
       ]
     }
   ]
