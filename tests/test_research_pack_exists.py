@@ -64,13 +64,30 @@ def test_academic_research_brief_mentions_synthetic():
     assert "synthetic" in content.lower(), "Academic research brief must mention synthetic benchmark"
 
 
-def test_academic_research_brief_no_clinical_claims():
+def test_academic_research_brief_no_clinical_or_institution_specific_claims():
     path = ROOT / "docs/research_pack/ACADEMIC_RESEARCH_BRIEF.md"
     content = path.read_text(encoding="utf-8").lower()
-    forbidden = ["clinical validation has been performed", "diagnos", "fda", "ce mark"]
-    for term in forbidden:
+
+    forbidden_clinical = [
+        "clinical validation has been performed",
+        "diagnos",
+        "fda",
+        "ce mark",
+    ]
+    forbidden_institutions = [
+        "ka" + "ust",
+        "king " + "abdullah " + "university of " + "science and " + "technology",
+    ]
+
+    for term in forbidden_clinical:
         assert term not in content, (
             f"Academic research brief must not contain clinical claim: {term!r}"
+        )
+
+    for term in forbidden_institutions:
+        assert term not in content, (
+            "Academic research brief must not contain institution-specific "
+            f"reference: {term!r}"
         )
 
 
