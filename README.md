@@ -161,7 +161,7 @@ the core runtime and requires no model weights or real ECG data to use.
 - **Failure mode atlas** — structured documentation of 8 failure categories
   (low contrast, rotation, blur, cropping, grid weakness, overlapping leads,
   flatline extraction, calibration ambiguity).
-- **KAUST research brief** — concise academic brief covering problem, pipeline,
+- **Academic research brief** — concise academic brief covering problem, pipeline,
   workbench contribution, limitations, and future research directions.
 
 See `docs/research_pack/` and `tools/synthetic_benchmark/` for details.

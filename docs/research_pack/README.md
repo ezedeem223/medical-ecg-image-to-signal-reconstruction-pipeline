@@ -2,13 +2,13 @@
 
 This directory contains the research documentation seed for the
 Medical ECG Image-to-Signal Reconstruction Pipeline, prepared as part of
-the KAUST AI research portfolio.
+an academic AI research portfolio.
 
 ## Contents
 
 | File | Description |
 |------|-------------|
-| `PROJECT_BRIEF_KAUST.md` | Concise academic project brief for KAUST audience |
+| `ACADEMIC_RESEARCH_BRIEF.md` | Concise academic research brief |
 | `FAILURE_MODE_ATLAS.md` | Catalogue of known and anticipated failure modes |
 | `SYNTHETIC_BENCHMARK_PROTOCOL.md` | Protocol governing the synthetic benchmark seed |
 | `EVALUATION_PROTOCOL.md` | Waveform fidelity evaluation framework |
@@ -24,6 +24,6 @@ the KAUST AI research portfolio.
 
 ## Intended Audience
 
-- KAUST research supervisors and collaborators
-- Independent research reviewers
+- Academic research reviewers
+- Research supervisors and collaborators
 - Future contributors building on this pipeline
