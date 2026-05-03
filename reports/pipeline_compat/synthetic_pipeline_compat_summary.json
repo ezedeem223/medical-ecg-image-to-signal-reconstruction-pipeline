@@ -1,0 +1,30 @@
+{
+  "synthetic": true,
+  "compatibility_only": true,
+  "label": "SYNTHETIC_COMPATIBILITY_ONLY",
+  "checked_at_utc": "2026-05-03T05:47:02.960933+00:00",
+  "status": "SKIPPED_ASSETS_MISSING",
+  "asset_readiness": {
+    "can_run_full_pipeline": false,
+    "skip_reasons": [
+      "Missing directory: data/images (input ECG page images)",
+      "Missing file: data/test.csv (test manifest (id column, optional fs column))",
+      "Missing file: data/sample_submission.parquet (submission template (id column, expected row order))"
+    ],
+    "warnings": []
+  },
+  "fixture_summary": {},
+  "command_attempted": null,
+  "stdout_summary": null,
+  "stderr_summary": null,
+  "output_files": [],
+  "scoring_possible": false,
+  "qc_possible": false,
+  "skip_reasons": [
+    "Missing directory: data/images (input ECG page images)",
+    "Missing file: data/test.csv (test manifest (id column, optional fs column))",
+    "Missing file: data/sample_submission.parquet (submission template (id column, expected row order))"
+  ],
+  "limitations": [],
+  "disclaimer": "This is a synthetic compatibility and engineering smoke-test report only. It does not establish clinical validity, real ECG reconstruction accuracy, or diagnostic performance. All synthetic data is labeled SYNTHETIC_COMPATIBILITY_ONLY."
+}

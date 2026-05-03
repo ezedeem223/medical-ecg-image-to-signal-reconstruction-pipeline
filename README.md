@@ -166,6 +166,25 @@ the core runtime and requires no model weights or real ECG data to use.
 
 See `docs/research_pack/` and `tools/synthetic_benchmark/` for details.
 
+### Pipeline Compatibility Max Pass
+
+The repository also includes a compatibility layer that bridges the synthetic
+benchmark with the full runtime pipeline. It operates on synthetic fixtures only
+and makes no clinical or performance claims.
+
+- **Asset readiness inspector** — checks whether all required configs, model
+  checkpoints, and data files are present before attempting execution.
+- **Synthetic runtime fixture adapter** — prepares a minimal runtime-compatible
+  fixture from synthetic benchmark cases; isolated from real data directories.
+- **Optional full-pipeline smoke test** — attempts a limited runtime invocation
+  on synthetic fixtures; skips honestly with explicit reasons if assets are absent.
+- **Honest skip reports** — every skip reason is listed explicitly in JSON and
+  Markdown reports; nothing is hidden.
+- **Synthetic-only boundaries** — all outputs are labeled `SYNTHETIC_COMPATIBILITY_ONLY`;
+  no performance or diagnostic claims are made.
+
+See `tools/pipeline_compat/` and `docs/research_pack/ECG_PIPELINE_COMPATIBILITY_RUNBOOK.md`.
+
 ## License
 
 This project is released under the MIT License. See [LICENSE](LICENSE).

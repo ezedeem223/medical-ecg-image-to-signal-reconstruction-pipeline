@@ -1,0 +1,74 @@
+{
+  "repository_root": "/home/runner/workspace",
+  "config_path": "configs/runtime.default.yaml",
+  "models_registry_path": "configs/models.yaml",
+  "checked_at_utc": "2026-05-03T05:45:51.441682+00:00",
+  "required_items": [
+    {
+      "path": "configs/runtime.default.yaml",
+      "kind": "file",
+      "role": "runtime configuration",
+      "exists": true,
+      "size_bytes": 963,
+      "sha256": "b79e3233b923283ff607832e927eddaec53237aef1203095a808296ba2182e09"
+    },
+    {
+      "path": "configs/models.yaml",
+      "kind": "file",
+      "role": "model registry (checkpoint paths and roles)",
+      "exists": true,
+      "size_bytes": 412,
+      "sha256": "6f5dd6a1147898fb707f0fd82d9051bd96ee7c124b660002003dc941872688f4"
+    },
+    {
+      "path": "models/best.pt",
+      "kind": "file",
+      "role": "YOLO lead detector checkpoint",
+      "exists": true,
+      "size_bytes": 136715059,
+      "sha256": "3e4e1a5cbb07e848947964b0ccf0abcb0f367807139437dbd4c3861210e2c090"
+    },
+    {
+      "path": "models/best_model_effb3_phase9_ddp (2).pth",
+      "kind": "file",
+      "role": "primary EfficientNet-B3 segmentation checkpoint",
+      "exists": true,
+      "size_bytes": 53454686,
+      "sha256": "d6fa2100fe8e8eaa0489710b05bd2c4d36269223bb7450a78c2d4977ab94471b"
+    },
+    {
+      "path": "models/best_model_phase10.pth",
+      "kind": "file",
+      "role": "fallback ResNet50 segmentation checkpoint",
+      "exists": true,
+      "size_bytes": 135647702,
+      "sha256": "311a6f91961c61ec8d0e7fff4affafd59af9f00a97cdc4c08986ad2a44f5be79"
+    },
+    {
+      "path": "data/images",
+      "kind": "directory",
+      "role": "input ECG page images",
+      "exists": false
+    },
+    {
+      "path": "data/test.csv",
+      "kind": "file",
+      "role": "test manifest (id column, optional fs column)",
+      "exists": false
+    },
+    {
+      "path": "data/sample_submission.parquet",
+      "kind": "file",
+      "role": "submission template (id column, expected row order)",
+      "exists": false
+    }
+  ],
+  "can_run_full_pipeline": false,
+  "skip_reasons": [
+    "Missing directory: data/images (input ECG page images)",
+    "Missing file: data/test.csv (test manifest (id column, optional fs column))",
+    "Missing file: data/sample_submission.parquet (submission template (id column, expected row order))"
+  ],
+  "warnings": [],
+  "disclaimer": "This report only checks engineering readiness for running the existing pipeline. It does not validate ECG reconstruction performance, clinical utility, or diagnostic correctness."
+}

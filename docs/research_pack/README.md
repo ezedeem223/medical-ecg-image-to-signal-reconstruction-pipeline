@@ -13,6 +13,8 @@ an academic AI research portfolio.
 | `SYNTHETIC_BENCHMARK_PROTOCOL.md` | Protocol governing the synthetic benchmark seed |
 | `EVALUATION_PROTOCOL.md` | Waveform fidelity evaluation framework |
 | `REPRODUCIBILITY_CHECKLIST.md` | Step-by-step reproducibility checklist |
+| `PIPELINE_COMPATIBILITY_PROTOCOL.md` | Protocol for synthetic-to-runtime compatibility testing |
+| `ECG_PIPELINE_COMPATIBILITY_RUNBOOK.md` | Step-by-step runbook for the pipeline compatibility pass |
 
 ## Scope and Limitations
 
